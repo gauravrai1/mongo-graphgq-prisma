@@ -3,12 +3,12 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
   email     String    @unique
   firstName String?
   lastName  String?
@@ -18,26 +18,26 @@ model User {
 }
 
 model Post {
-  id        Int       @id @default(autoincrement())
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   content   String
   published Boolean   @default(false)
   author    User      @relation("postAuthor", fields: [authorId], references: [id])
-  authorId  Int
+  authorId  String
   comments  Comment[] @relation("commentOfPost")
 }
 
 model Comment {
-  id        Int       @id @default(autoincrement())
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   content   String
   post      Post      @relation("commentOfPost", fields: [postId], references: [id])
-  postId    Int
+  postId    String
   author    User      @relation("commentAuthor", fields: [authorId], references: [id])
-  authorId  Int
-  replyto   Comment?  @relation("replyTo", fields: [replytoId], references: [id])
-  replytoId Int?
+  authorId  String
+  replyto   Comment?  @relation("replyTo", fields: [replytoId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  replytoId String?
   replies   Comment[] @relation("replyTo")
 }

@@ -6,7 +6,6 @@ import { WebSocketServer } from 'ws'
 import { ApolloServer } from 'apollo-server-express'
 import { makeExecutableSchema } from '@graphql-tools/schema'
 const express = require('express')
-const bodyParser = require('body-parser');
 import { useServer } from 'graphql-ws/lib/use/ws'
 import { context } from './context'
 
@@ -52,6 +51,8 @@ async function start() {
   })
 
   await server.start()
+
+
   server.applyMiddleware({ app })
 
   httpServer.listen(PORT, () => {

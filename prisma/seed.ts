@@ -23,44 +23,6 @@ const userData: Prisma.UserCreateInput[] = [
   },
 ]
 
-const postData: Prisma.PostCreateInput[] = [
-  {
-    content: 'This is my first post',
-    author: {
-      connect: { id: 1 },
-    },
-    published: true,
-  },
-  {
-    content: 'This is my second post',
-    author: {
-      connect: { id: 1 },
-    },
-    published: false,
-  },
-  {
-    content: 'This is awesome',
-    author: {
-      connect: { id: 2 },
-    },
-    published: true,
-  },
-  {
-    content: 'hola! amigos',
-    author: {
-      connect: { id: 3 },
-    },
-    published: false,
-  },
-  {
-    content: 'Kaise ho mitron!',
-    author: {
-      connect: { id: 3 },
-    },
-    published: true,
-  }
-]
-
 async function main() {
   console.log(`Start seeding ...`)
   for (const u of userData) {
@@ -68,12 +30,6 @@ async function main() {
       data: u,
     })
     console.log(`Created user with id: ${user.id}`)
-  }
-  for (const p of postData) {
-    const post = await prisma.post.create({
-      data: p,
-    })
-    console.log(`Created post with id: ${post.id}`)
   }
   console.log(`Seeding finished.`)
 }

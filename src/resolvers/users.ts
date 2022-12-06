@@ -27,7 +27,7 @@ export const usersResolvers = {
         // Returning all users
         return context.prisma.user.findMany()
       },
-      userById: (_parent, args: { id: number }, context: Context) => {
+      userById: (_parent, args: { id: string }, context: Context) => {
 
         // Checking if user is authenticated
         const user = checkAuth(context);
@@ -208,6 +208,6 @@ interface UserUpdateFirstNameInput {
 }
 
 interface UserUpdateLastNameInput {
-    userId: number
+    userId: string
     lastName: string
 }

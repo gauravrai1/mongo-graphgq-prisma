@@ -6,7 +6,7 @@ export const postsResolvers = {
     Query: {
       postsByUser: async (
         _parent,
-        args: { userId: number },
+        args: { userId: string },
         context: Context,
       ) => {
 
@@ -27,7 +27,8 @@ export const postsResolvers = {
             return context.prisma.user
             .findUnique({
                 where: {
-                id: args.userId},
+                id: args.userId
+              },
             })
             .posts({
                 where: {
@@ -43,7 +44,7 @@ export const postsResolvers = {
       },
       draftsByUser: (
         _parent,
-        args: { userId: number },
+        args: { userId: string },
         context: Context,
       ) => {
 
@@ -63,7 +64,7 @@ export const postsResolvers = {
             },
           })
       },
-      postById: async (_parent, args: { id: number }, context: Context) => {
+      postById: async (_parent, args: { id: string }, context: Context) => {
 
         // Checking if user is authenticated
         checkAuth(context);
@@ -144,7 +145,7 @@ export const postsResolvers = {
       },
       togglePublishPost: async (
         _parent,
-        args: { id: number },
+        args: { id: string },
         context: Context,
       ) => {
         try {
@@ -189,7 +190,7 @@ export const postsResolvers = {
           )
         }
       },
-      deletePost: async (_parent, args: { id: number }, context: Context) => {
+      deletePost: async (_parent, args: { id: string }, context: Context) => {
 
         // Checking if user is authenticated
         const user = checkAuth(context);
@@ -271,6 +272,6 @@ export const postsResolvers = {
   }
 
   interface PostUpdateInput {
-    postId: number
+    postId: string
     content: string
   }

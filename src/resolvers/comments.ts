@@ -4,7 +4,7 @@ const { UserInputError } = require('apollo-server');
 
 export const commentsResolvers = {
     Query: {
-      commentsOfPost: async (_parent, args: { id: number }, context: Context) => {
+      commentsOfPost: async (_parent, args: { id: string }, context: Context) => {
 
         // Checking if user is authenticated
         checkAuth(context);
@@ -28,7 +28,7 @@ export const commentsResolvers = {
           },
         })
       },
-      commentById: async (_parent, args: { id: number }, context: Context) => {
+      commentById: async (_parent, args: { id: string }, context: Context) => {
 
         // Checking if user is authenticated
         const user = checkAuth(context);
@@ -48,7 +48,7 @@ export const commentsResolvers = {
         }
   
       },
-      commentByReplyTo: (_parent, args: { replyToId: number }, context: Context) => {
+      commentByReplyTo: (_parent, args: { replyToId: string }, context: Context) => {
 
         // Checking if user is authenticated
         checkAuth(context);
@@ -144,7 +144,7 @@ export const commentsResolvers = {
 
         }
       },
-      deleteComment: async (_parent, args: { id: number }, context: Context) => {
+      deleteComment: async (_parent, args: { id: string }, context: Context) => {
 
         // Checking if user is authenticated
         const user = checkAuth(context);
@@ -230,11 +230,11 @@ export const commentsResolvers = {
   
   interface CommentCreateInput {
     content: string
-    postId: number
-    replyTo?: number
+    postId: string
+    replyTo?: string
   }
 
   interface CommentUpdateInput {
-    commentId: number
+    commentId: string
     content: string
   }

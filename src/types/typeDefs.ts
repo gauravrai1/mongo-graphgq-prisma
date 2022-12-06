@@ -6,19 +6,19 @@ export const typeDefs = `#graphql
     updateFirstName(data: UserUpdateFirstNameInput!): User!
     updateLastName(data: UserUpdateLastNameInput!): User!
     createDraft(content: String!, published: Boolean): Post
-    togglePublishPost(id: Int!): Post
-    deletePost(id: Int!): Post
+    togglePublishPost(id: String!): Post
+    deletePost(id: String!): Post
     updatePost(data: PostUpdateInput!): Post
     createComment(data: CommentCreateInput!): Comment
-    deleteComment(id: Int!): Comment
+    deleteComment(id: String!): Comment
     updateComment(data: CommentUpdateInput!): Comment
   }
 
   type Comment {
-    authorId: Int!
+    authorId: String!
     content: String!
     createdAt: DateTime!
-    id: Int!
+    id: String!
     post: Post!
     author: User!
     replyto: Comment
@@ -26,18 +26,18 @@ export const typeDefs = `#graphql
   }
 
   input CommentUpdateInput {
-    commentId: Int!
+    commentId: String!
     content: String!
   }
 
   input CommentCreateInput {
     content: String!
-    postId: Int!
-    replyTo: Int
+    postId: String!
+    replyTo: String
   }
 
   type Post {
-    id: Int!
+    id: String!
     author: User!
     content: String!
     createdAt: DateTime!
@@ -47,7 +47,7 @@ export const typeDefs = `#graphql
   }
 
   input PostUpdateInput {
-    postId: Int!
+    postId: String!
     content: String!
   }
 
@@ -57,19 +57,19 @@ export const typeDefs = `#graphql
 
   type Query {
     allUsers: [User!]!
-    userById(id: Int!): User
-    postsByUser(userId: Int!): [Post]
-    draftsByUser(userId: Int!): [Post]
+    userById(id: String!): User
+    postsByUser(userId: String!): [Post]
+    draftsByUser(userId: String!): [Post]
     postById(id: Int): Post
     feed(
       orderBy: PostOrderByUpdatedAtInput
       searchString: String
-      skip: Int
-      take: Int
+      skip: String
+      take: String
     ): [Post!]!
-    commentsOfPost(postId: Int!): [Comment!]!
-    commentById(id: Int!): Comment
-    commentByReplyTo(replyToId: Int!): [Comment!]!
+    commentsOfPost(postId: String!): [Comment!]!
+    commentById(id: String!): Comment
+    commentByReplyTo(replyToId: String!): [Comment!]!
   }
 
   enum SortOrder {
@@ -79,7 +79,7 @@ export const typeDefs = `#graphql
 
   type User {
     email: String!
-    id: Int!
+    id: String!
     token: String!
     firstName: String
     lastName: String
