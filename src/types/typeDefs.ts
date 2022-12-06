@@ -60,7 +60,7 @@ export const typeDefs = `#graphql
     userById(id: String!): User
     postsByUser(userId: String!): [Post]
     draftsByUser(userId: String!): [Post]
-    postById(id: Int): Post
+    postById(id: String!): Post
     feed(
       orderBy: PostOrderByUpdatedAtInput
       searchString: String
